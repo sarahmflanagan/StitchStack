@@ -1,0 +1,53 @@
+@page "{id}"
+@model StitchStack.Pages.EditPatternModel
+@{
+    ViewData["Title"] = "Edit Pattern";
+}
+
+<div class="container form-container">
+    <h1>Edit Pattern</h1>
+
+    <form method="post" class="form">
+        <input type="hidden" asp-for="Pattern.Id" />
+
+        <div class="form-group">
+            <label asp-for="Pattern.Name" class="form-label">Name *</label>
+            <input asp-for="Pattern.Name" class="form-control" required />
+            <span asp-validation-for="Pattern.Name" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Pattern.Type" class="form-label">Type</label>
+            <input asp-for="Pattern.Type" class="form-control" />
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Pattern.Brand" class="form-label">Brand</label>
+            <input asp-for="Pattern.Brand" class="form-control" />
+        </div>
+
+        <div class="form-group form-check">
+            <input asp-for="Pattern.isWoven" type="checkbox" class="form-check-input" />
+            <label asp-for="Pattern.isWoven" class="form-check-label">Is Woven</label>
+        </div>
+
+        <div class="form-group form-check">
+            <input asp-for="Pattern.isToilComplete" type="checkbox" class="form-check-input" />
+            <label asp-for="Pattern.isToilComplete" class="form-check-label">Is Toil Complete</label>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Pattern.Description" class="form-label">Description</label>
+            <textarea asp-for="Pattern.Description" class="form-control" rows="4"></textarea>
+        </div>
+
+        <div class="form-actions">
+            <button type="submit" class="btn btn-success">Save Changes</button>
+            <a class="btn btn-secondary" asp-page="Patterns">Cancel</a>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

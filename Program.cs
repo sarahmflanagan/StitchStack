@@ -1,11 +1,13 @@
 using Microsoft.EntityFrameworkCore;
 using StitchStack.Data.InMemory;
 using StitchStack.Data.Repositories;
+using StitchStack.Data.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
+builder.Services.AddRazorPages();
 builder.Services.AddControllers();
 
 // db
@@ -16,6 +18,9 @@ builder.Services.AddDbContext<InMemoryDBContext>(options =>
 builder.Services.AddScoped<IPatternRepository, PatternRepository>();
 builder.Services.AddScoped<IFabricRepository, FabricRepository>();
 builder.Services.AddScoped<IProjectRepository, ProjectRepository>();
+
+// services
+builder.Services.AddScoped<IProjectService, ProjectService>();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -34,6 +39,7 @@ app.UseHttpsRedirection();
 
 app.UseAuthorization();
 
+app.MapRazorPages();
 app.MapControllers();
 
 app.Run();
