@@ -38,8 +38,8 @@ namespace StitchStack.Data.Repositories
             }
             result.Name = project.Name;
             result.Description = project.Description;
-            result.PatternChoice = project.PatternChoice;
-            result.FabricChoice = project.FabricChoice;
+            result.Pattern = project.Pattern;
+            result.Fabric = project.Fabric;
             result.ToilRequired = project.ToilRequired;
 
             await _dbContext.SaveChangesAsync();

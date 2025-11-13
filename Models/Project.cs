@@ -6,10 +6,12 @@
         
         public string? Name { get; set; }
         public string? Description { get; set; }
-        public Pattern? PatternChoice { get; set; }
-        public Fabric? FabricChoice { get; set; }
+        
         public bool ToilRequired { get; set; } = false;
 
-
+        public int? FabricId { get; set; }
+        public Fabric? Fabric { get; set; }
+        public int? PatternId  { get; set; } 
+        public Pattern? Pattern { get; set; }
     }
 }
