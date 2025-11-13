@@ -4,6 +4,7 @@ using Microsoft.Extensions.FileSystemGlobbing.Internal;
 using StitchStack.Data.Repositories;
 using StitchStack.Models;
 using System.Threading.Tasks;
+using StitchStack.Data.Services;
 
 namespace StitchStack.Controllers
 {
@@ -11,23 +12,23 @@ namespace StitchStack.Controllers
     [ApiController]
     public class ProjectController : ControllerBase
     {
-        private readonly IProjectRepository _projectRepository;
-        public ProjectController(IProjectRepository projectRepository)
+        private readonly IProjectService _projectService;
+        public ProjectController(IProjectService projectService)
         {
-            _projectRepository = projectRepository;
+            _projectService = projectService;
         }
 
         [HttpGet]
         public async Task<IEnumerable<Project>> GetAllProjectsAsync()
         {
 
-            return await _projectRepository.GetProjectsAsync();
+            return await _projectService.GetProjectsAsync();
         }
 
         [HttpGet("{id}")]
         public async Task<ActionResult<Project>> GetProjectByIdAsync(int id)
         {
-            var result = await _projectRepository.GetProjectByIdAsync(id);
+            var result = await _projectService.GetProjectByIdAsync(id);
             if (result == null)
             {
                 return NotFound();
@@ -38,7 +39,7 @@ namespace StitchStack.Controllers
         [HttpPost]
         public async Task AddNewProjectAsync(Project Project)
         {
-            await _projectRepository.AddProjectAsync(Project);
+            await _projectService.AddProjectAsync(Project);
         }
 
         [HttpPut("{id}")]
@@ -48,7 +49,7 @@ namespace StitchStack.Controllers
             {
                 return BadRequest();
             }
-            await _projectRepository.UpdateProjectAsync(id, Project);
+            await _projectService.UpdateProjectAsync(id, Project);
             return NoContent();
         }
 
@@ -59,7 +60,7 @@ namespace StitchStack.Controllers
             {
                 return BadRequest();
             }
-            await _projectRepository.DeleteProjectAsync(id);
+            await _projectService.DeleteProjectAsync(id);
             return NoContent();
         }
     }
