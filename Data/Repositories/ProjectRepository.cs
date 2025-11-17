@@ -1,13 +1,13 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using StitchStack.Data.InMemory;
+using StitchStack.Data.SqlDB;
 using StitchStack.Models;
 
 namespace StitchStack.Data.Repositories
 {
     public class ProjectRepository : IProjectRepository
     {
-        private readonly InMemoryDBContext _dbContext;
-        public ProjectRepository(InMemoryDBContext context)
+        private readonly SqlDBContext _dbContext;
+        public ProjectRepository(SqlDBContext context)
         {
             _dbContext = context;
         }

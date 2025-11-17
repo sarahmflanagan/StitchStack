@@ -3,6 +3,7 @@ using StitchStack.Data;
 using StitchStack.Data.InMemory;
 using StitchStack.Data.Repositories;
 using StitchStack.Data.Services;
+using StitchStack.Data.SqlDB;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,6 +15,10 @@ builder.Services.AddControllers();
 // db
 builder.Services.AddDbContext<InMemoryDBContext>(options =>
       options.UseInMemoryDatabase("InMemoryDBContext"));
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+builder.Services.AddDbContext<SqlDBContext>(options => {
+    options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString));
+});
 
 // repositories
 builder.Services.AddScoped<IPatternRepository, PatternRepository>();

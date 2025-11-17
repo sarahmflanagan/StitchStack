@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using StitchStack.Data.InMemory;
+using StitchStack.Data.SqlDB;
 using StitchStack.Models;
 using System.Linq;
 
@@ -7,8 +7,8 @@ namespace StitchStack.Data.Repositories
 {
     public class PatternRepository : IPatternRepository
     {
-        private readonly InMemoryDBContext _dbContext;
-        public PatternRepository(InMemoryDBContext context) {
+        private readonly SqlDBContext _dbContext;
+        public PatternRepository(SqlDBContext context) {
             _dbContext = context;
         }
 
