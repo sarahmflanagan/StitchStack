@@ -1,6 +1,0 @@
-@StitchStack_HostAddress = http://localhost:5133
-
-GET {{StitchStack_HostAddress}}/weatherforecast/
-Accept: application/json
-
-###
