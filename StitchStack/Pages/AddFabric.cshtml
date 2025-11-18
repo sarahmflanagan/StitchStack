@@ -1,0 +1,47 @@
+@page "/fabrics/add"
+@model StitchStack.Pages.AddFabricModel
+@{
+    ViewData["Title"] = "Add Fabric";
+}
+
+<div class="container form-container">
+    <h1>Add New Fabric</h1>
+
+    <form method="post" class="form">
+        @Html.AntiForgeryToken()
+        <div class="form-group">
+            <label asp-for="Fabric.Type" class="form-label">Type *</label>
+            <input asp-for="Fabric.Type" class="form-control" placeholder="e.g., Cotton, Silk, Linen" required />
+            <span asp-validation-for="Fabric.Type" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Fabric.Colour" class="form-label">Colour</label>
+            <input asp-for="Fabric.Colour" class="form-control" placeholder="e.g., Blue, Red, Floral" />
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Fabric.Source" class="form-label">Source</label>
+            <input asp-for="Fabric.Source" class="form-control" placeholder="e.g., John Lewis, Etsy" />
+        </div>
+
+        <div class="form-group form-check">
+            <input asp-for="Fabric.isWoven" type="checkbox" class="form-check-input" />
+            <label asp-for="Fabric.isWoven" class="form-check-label">Is Woven</label>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Fabric.Description" class="form-label">Description</label>
+            <textarea asp-for="Fabric.Description" class="form-control" rows="4" placeholder="Additional notes about this fabric..."></textarea>
+        </div>
+
+        <div class="form-actions">
+            <button type="submit" class="btn btn-success">Add Fabric</button>
+            <a class="btn btn-secondary" href="/fabrics">Cancel</a>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
