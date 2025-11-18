@@ -18,12 +18,13 @@ namespace StitchStack.Pages
 
         public async Task OnGetAsync()
         {
-            Fabrics = await _fabricRepository.GetAllAsync();
+            var fabrics = await _fabricRepository.GetFabricsAsync();
+            Fabrics = fabrics.ToList();
         }
 
         public async Task<IActionResult> OnGetDeleteAsync(int id)
         {
-            await _fabricRepository.DeleteAsync(id);
+            await _fabricRepository.DeleteFabricAsync(id);
             return RedirectToPage();
         }
     }

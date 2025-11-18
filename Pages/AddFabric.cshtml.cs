@@ -15,7 +15,7 @@ namespace StitchStack.Pages
         }
 
         [BindProperty]
-        public Fabric Fabric { get; set; } = new();
+        public Fabric Fabric { get; set; } = new() { Id = 0, Type = "" };
 
         public void OnGet()
         {
@@ -28,8 +28,8 @@ namespace StitchStack.Pages
                 return Page();
             }
 
-            await _fabricRepository.AddAsync(Fabric);
-            return RedirectToPage("Fabrics");
+            await _fabricRepository.AddFabricAsync(Fabric);
+            return RedirectToPage("/Fabrics");
         }
     }
 }

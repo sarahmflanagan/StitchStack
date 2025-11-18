@@ -1,4 +1,4 @@
-@page
+@page "/fabrics/add"
 @model StitchStack.Pages.AddFabricModel
 @{
     ViewData["Title"] = "Add Fabric";
@@ -8,6 +8,7 @@
     <h1>Add New Fabric</h1>
 
     <form method="post" class="form">
+        @Html.AntiForgeryToken()
         <div class="form-group">
             <label asp-for="Fabric.Type" class="form-label">Type *</label>
             <input asp-for="Fabric.Type" class="form-control" placeholder="e.g., Cotton, Silk, Linen" required />
@@ -36,7 +37,7 @@
 
         <div class="form-actions">
             <button type="submit" class="btn btn-success">Add Fabric</button>
-            <a class="btn btn-secondary" asp-page="Fabrics">Cancel</a>
+            <a class="btn btn-secondary" href="/fabrics">Cancel</a>
         </div>
     </form>
 </div>

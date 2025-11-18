@@ -27,14 +27,19 @@ namespace StitchStack.Pages
         }
 
         [BindProperty]
-        public Project Project { get; set; } = new();
+        public Project Project { get; set; } = new() { Id = 0 };
 
         public SelectList? FabricList { get; set; }
         public SelectList? PatternList { get; set; }
 
-        public async Task<IActionResult> OnGetAsync(int id)
+        public async Task<IActionResult> OnGetAsync(int? id)
         {
-            var project = await _projectRepository.GetByIdAsync(id);
+            if (id == null || id == 0)
+            {
+                return NotFound();
+            }
+
+            var project = await _projectRepository.GetProjectByIdAsync(id.Value);
             if (project == null)
             {
                 return NotFound();
@@ -47,6 +52,33 @@ namespace StitchStack.Pages
 
         public async Task<IActionResult> OnPostAsync()
         {
+            // Reload the original entity first
+            var originalProject = await _projectRepository.GetProjectByIdAsync(Project.Id);
+            if (originalProject != null)
+            {
+                // For any field that's empty/null, restore from original before validation
+                if (string.IsNullOrEmpty(Project.Name))
+                    Project.Name = originalProject.Name;
+                if (Project.FabricId == null || Project.FabricId == 0)
+                    Project.FabricId = originalProject.FabricId;
+                if (Project.PatternId == null || Project.PatternId == 0)
+                    Project.PatternId = originalProject.PatternId;
+                if (Project.ToilRequired == null)
+                    Project.ToilRequired = originalProject.ToilRequired;
+                if (string.IsNullOrEmpty(Project.Description))
+                    Project.Description = originalProject.Description;
+            }
+
+            // Now validate - but only the fields that were actually posted
+            // Clear ModelState completely and rebuild it manually for posted fields only
+            var postedKeys = Request.Form.Keys.Where(k => k.StartsWith("Project.")).ToList();
+            var keysToRemove = ModelState.Keys.Where(k => k.StartsWith("Project.") && !postedKeys.Contains(k)).ToList();
+
+            foreach (var key in keysToRemove)
+            {
+                ModelState.Remove(key);
+            }
+
             if (!ModelState.IsValid)
             {
                 await LoadDropdowns();
@@ -55,12 +87,12 @@ namespace StitchStack.Pages
 
             try
             {
-                await _projectRepository.UpdateAsync(Project);
-                return RedirectToPage("Projects");
+                await _projectRepository.UpdateProjectAsync(Project.Id, Project);
+                return RedirectToPage("/Projects");
             }
-            catch (BadHttpRequestException ex)
+            catch (Exception ex)
             {
-                ModelState.AddModelError(string.Empty, ex.Message);
+                ModelState.AddModelError(string.Empty, $"Error updating project: {ex.Message}");
                 await LoadDropdowns();
                 return Page();
             }
@@ -68,8 +100,8 @@ namespace StitchStack.Pages
 
         private async Task LoadDropdowns()
         {
-            var fabrics = await _fabricRepository.GetAllAsync();
-            var patterns = await _patternRepository.GetAllAsync();
+            var fabrics = await _fabricRepository.GetFabricsAsync();
+            var patterns = await _patternRepository.GetPatternsAsync();
 
             FabricList = new SelectList(fabrics, "Id", "Type", Project.FabricId);
             PatternList = new SelectList(patterns, "Id", "Name", Project.PatternId);

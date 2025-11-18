@@ -15,7 +15,7 @@ namespace StitchStack.Pages
         }
 
         [BindProperty]
-        public Pattern Pattern { get; set; } = new();
+        public Pattern Pattern { get; set; } = new() { Id = 0, Name = "" };
 
         public void OnGet()
         {
@@ -28,8 +28,8 @@ namespace StitchStack.Pages
                 return Page();
             }
 
-            await _patternRepository.AddAsync(Pattern);
-            return RedirectToPage("Patterns");
+            await _patternRepository.AddPatternAsync(Pattern);
+            return RedirectToPage("/Patterns");
         }
     }
 }

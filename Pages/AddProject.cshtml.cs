@@ -24,7 +24,7 @@ namespace StitchStack.Pages
         }
 
         [BindProperty]
-        public Project Project { get; set; } = new();
+        public Project Project { get; set; } = new() { Id = 0 };
 
         public SelectList? FabricList { get; set; }
         public SelectList? PatternList { get; set; }
@@ -45,7 +45,7 @@ namespace StitchStack.Pages
             try
             {
                 await _projectService.AddProjectAsync(Project);
-                return RedirectToPage("Projects");
+                return RedirectToPage("/Projects");
             }
             catch (BadHttpRequestException ex)
             {
@@ -57,8 +57,8 @@ namespace StitchStack.Pages
 
         private async Task LoadDropdowns()
         {
-            var fabrics = await _fabricRepository.GetAllAsync();
-            var patterns = await _patternRepository.GetAllAsync();
+            var fabrics = await _fabricRepository.GetFabricsAsync();
+            var patterns = await _patternRepository.GetPatternsAsync();
 
             FabricList = new SelectList(fabrics, "Id", "Type");
             PatternList = new SelectList(patterns, "Id", "Name");

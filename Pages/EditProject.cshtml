@@ -1,4 +1,4 @@
-@page "{id}"
+@page "/projects/edit/{id:int}"
 @model StitchStack.Pages.EditProjectModel
 @{
     ViewData["Title"] = "Edit Project";
@@ -7,12 +7,29 @@
 <div class="container form-container">
     <h1>Edit Project</h1>
 
+    @if (!ViewData.ModelState.IsValid)
+    {
+        <div class="alert alert-danger">
+            <strong>Validation Errors:</strong>
+            <ul>
+                @foreach (var modelState in ViewData.ModelState.Values)
+                {
+                    @foreach (var error in modelState.Errors)
+                    {
+                        <li>@error.ErrorMessage</li>
+                    }
+                }
+            </ul>
+        </div>
+    }
+
     <form method="post" class="form">
+        @Html.AntiForgeryToken()
         <input type="hidden" asp-for="Project.Id" />
 
         <div class="form-group">
             <label asp-for="Project.Name" class="form-label">Name *</label>
-            <input asp-for="Project.Name" class="form-control" required />
+            <input asp-for="Project.Name" class="form-control" required value="@(Model.Project?.Name ?? string.Empty)" />
             <span asp-validation-for="Project.Name" class="text-danger"></span>
         </div>
 
@@ -33,18 +50,18 @@
         </div>
 
         <div class="form-group form-check">
-            <input asp-for="Project.ToilRequired" type="checkbox" class="form-check-input" />
+            <input asp-for="Project.ToilRequired" type="checkbox" class="form-check-input" @(Model.Project?.ToilRequired == true ? "checked" : "") />
             <label asp-for="Project.ToilRequired" class="form-check-label">Toil Required</label>
         </div>
 
         <div class="form-group">
             <label asp-for="Project.Description" class="form-label">Description</label>
-            <textarea asp-for="Project.Description" class="form-control" rows="4"></textarea>
+            <textarea asp-for="Project.Description" class="form-control" rows="4">@(Model.Project?.Description ?? string.Empty)</textarea>
         </div>
 
         <div class="form-actions">
             <button type="submit" class="btn btn-success">Save Changes</button>
-            <a class="btn btn-secondary" asp-page="Projects">Cancel</a>
+            <a class="btn btn-secondary" href="/projects">Cancel</a>
         </div>
     </form>
 </div>

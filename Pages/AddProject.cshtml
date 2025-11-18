@@ -1,4 +1,4 @@
-@page
+@page "/projects/add"
 @model StitchStack.Pages.AddProjectModel
 @{
     ViewData["Title"] = "Add Project";
@@ -8,6 +8,7 @@
     <h1>Add New Project</h1>
 
     <form method="post" class="form">
+        @Html.AntiForgeryToken()
         <div class="form-group">
             <label asp-for="Project.Name" class="form-label">Name *</label>
             <input asp-for="Project.Name" class="form-control" placeholder="e.g., Summer Dress, Winter Coat" required />
@@ -42,7 +43,7 @@
 
         <div class="form-actions">
             <button type="submit" class="btn btn-success">Add Project</button>
-            <a class="btn btn-secondary" asp-page="Projects">Cancel</a>
+            <a class="btn btn-secondary" href="/projects">Cancel</a>
         </div>
     </form>
 </div>

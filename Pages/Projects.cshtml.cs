@@ -25,12 +25,13 @@ namespace StitchStack.Pages
 
         public async Task OnGetAsync()
         {
-            Projects = await _projectRepository.GetAllAsync();
+            var projects = await _projectRepository.GetProjectsAsync();
+            Projects = projects.ToList();
         }
 
         public async Task<IActionResult> OnGetDeleteAsync(int id)
         {
-            await _projectRepository.DeleteAsync(id);
+            await _projectRepository.DeleteProjectAsync(id);
             return RedirectToPage();
         }
     }

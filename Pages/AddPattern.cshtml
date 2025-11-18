@@ -1,4 +1,4 @@
-@page
+@page "/patterns/add"
 @model StitchStack.Pages.AddPatternModel
 @{
     ViewData["Title"] = "Add Pattern";
@@ -8,6 +8,7 @@
     <h1>Add New Pattern</h1>
 
     <form method="post" class="form">
+        @Html.AntiForgeryToken()
         <div class="form-group">
             <label asp-for="Pattern.Name" class="form-label">Name *</label>
             <input asp-for="Pattern.Name" class="form-control" placeholder="e.g., Simple Dress, Coat Pattern" required />
@@ -41,7 +42,7 @@
 
         <div class="form-actions">
             <button type="submit" class="btn btn-success">Add Pattern</button>
-            <a class="btn btn-secondary" asp-page="Patterns">Cancel</a>
+            <a class="btn btn-secondary" href="/patterns">Cancel</a>
         </div>
     </form>
 </div>

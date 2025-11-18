@@ -1,4 +1,4 @@
-@page
+@page "/projects"
 @model StitchStack.Pages.ProjectsModel
 @{
     ViewData["Title"] = "Projects";
@@ -7,13 +7,13 @@
 <div class="container">
     <div class="page-header">
         <h1>Projects</h1>
-        <a class="btn btn-primary" asp-page="AddProject">+ Add New Project</a>
+        <a class="btn btn-primary" href="/projects/add">+ Add New Project</a>
     </div>
 
     @if (Model.Projects.Count == 0)
     {
         <div class="alert alert-info">
-            No projects found. <a asp-page="AddProject">Create one now</a>.
+            No projects found. <a href="/projects/add">Create one now</a>.
         </div>
     }
     else
@@ -40,8 +40,8 @@
                             <td>@(project.ToilRequired ? "Yes" : "No")</td>
                             <td>@(project.Description ?? "-")</td>
                             <td>
-                                <a class="btn btn-sm btn-info" asp-page="EditProject" asp-route-id="@project.Id">Edit</a>
-                                <a class="btn btn-sm btn-danger" asp-page="Projects" asp-route-handler="delete" asp-route-id="@project.Id" onclick="return confirm('Are you sure?')">Delete</a>
+                                <a class="btn btn-sm btn-info" href="/projects/edit/@project.Id">Edit</a>
+                                <a class="btn btn-sm btn-danger" href="/projects?handler=delete&id=@project.Id" onclick="return confirm('Are you sure?')">Delete</a>
                             </td>
                         </tr>
                     }

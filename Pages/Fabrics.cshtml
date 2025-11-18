@@ -1,4 +1,4 @@
-@page
+@page "/fabrics"
 @model StitchStack.Pages.FabricsModel
 @{
     ViewData["Title"] = "Fabrics";
@@ -7,13 +7,13 @@
 <div class="container">
     <div class="page-header">
         <h1>Fabrics</h1>
-        <a class="btn btn-primary" asp-page="AddFabric">+ Add New Fabric</a>
+        <a class="btn btn-primary" href="/fabrics/add">+ Add New Fabric</a>
     </div>
 
     @if (Model.Fabrics.Count == 0)
     {
         <div class="alert alert-info">
-            No fabrics found. <a asp-page="AddFabric">Add one now</a>.
+            No fabrics found. <a href="/fabrics/add">Add one now</a>.
         </div>
     }
     else
@@ -40,8 +40,8 @@
                             <td>@(fabric.Source ?? "-")</td>
                             <td>@(fabric.Description ?? "-")</td>
                             <td>
-                                <a class="btn btn-sm btn-info" asp-page="EditFabric" asp-route-id="@fabric.Id">Edit</a>
-                                <a class="btn btn-sm btn-danger" asp-page="Fabrics" asp-route-handler="delete" asp-route-id="@fabric.Id" onclick="return confirm('Are you sure?')">Delete</a>
+                                <a class="btn btn-sm btn-info" href="/fabrics/edit/@fabric.Id">Edit</a>
+                                <a class="btn btn-sm btn-danger" href="/fabrics?handler=delete&id=@fabric.Id" onclick="return confirm('Are you sure?')">Delete</a>
                             </td>
                         </tr>
                     }

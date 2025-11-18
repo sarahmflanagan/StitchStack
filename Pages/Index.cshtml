@@ -1,4 +1,4 @@
-@page
+@page "/"
 @{
     ViewData["Title"] = "Home";
 }
@@ -12,19 +12,19 @@
             <div style="padding: 2rem; background-color: var(--light-bg); border-radius: 8px;">
                 <h3 style="color: var(--primary-color); margin-bottom: 1rem;">Projects</h3>
                 <p>Track all your sewing projects and manage their details.</p>
-                <a class="btn btn-primary" asp-page="/Projects">View Projects</a>
+                <a class="btn btn-primary" href="/projects">View Projects</a>
             </div>
 
             <div style="padding: 2rem; background-color: var(--light-bg); border-radius: 8px;">
                 <h3 style="color: var(--primary-color); margin-bottom: 1rem;">Fabrics</h3>
                 <p>Keep track of your fabric collection and colours.</p>
-                <a class="btn btn-primary" asp-page="/Fabrics">View Fabrics</a>
+                <a class="btn btn-primary" href="/fabrics">View Fabrics</a>
             </div>
 
             <div style="padding: 2rem; background-color: var(--light-bg); border-radius: 8px;">
                 <h3 style="color: var(--primary-color); margin-bottom: 1rem;">Patterns</h3>
                 <p>Manage your sewing patterns and pattern information.</p>
-                <a class="btn btn-primary" asp-page="/Patterns">View Patterns</a>
+                <a class="btn btn-primary" href="/patterns">View Patterns</a>
             </div>
         </div>
     </div>

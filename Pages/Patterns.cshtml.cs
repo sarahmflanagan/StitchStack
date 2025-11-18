@@ -18,12 +18,13 @@ namespace StitchStack.Pages
 
         public async Task OnGetAsync()
         {
-            Patterns = await _patternRepository.GetAllAsync();
+            var patterns = await _patternRepository.GetPatternsAsync();
+            Patterns = patterns.ToList();
         }
 
         public async Task<IActionResult> OnGetDeleteAsync(int id)
         {
-            await _patternRepository.DeleteAsync(id);
+            await _patternRepository.DeletePatternAsync(id);
             return RedirectToPage();
         }
     }
