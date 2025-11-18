@@ -34,13 +34,6 @@ builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
-// Seed the database
-using (var scope = app.Services.CreateScope())
-{
-    var dbContext = scope.ServiceProvider.GetRequiredService<InMemoryDBContext>();
-    await DbSeeder.SeedAsync(dbContext);
-}
-
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
@@ -61,3 +54,5 @@ app.MapRazorPages();
 app.MapControllers();
 
 app.Run();
+
+public partial class Program { }
