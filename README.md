@@ -9,34 +9,45 @@ StitchStack helps me keep track of my sewing materials and projects in one place
 **Features**
 
 Pattern Management: Organize and categorize my sewing pattern collection
+
 Fabric Inventory: Track fabrics by type, color, length, and material
+
 Project Planning: Create sewing projects by pairing patterns with fabrics
+
 Project Tracking: Monitor project status from planning through completion
 
 **Tech Stack**
 
 Backend: .NET Core / ASP.NET Core
+
 Database: Entity Framework Core with MySQL Database
+
 Language: C#
 
 **Data Models**
-Fabric
+
+**Fabric**
 
 Name, Color, Material, Length
+
 Tracks available fabric in my stash
 
 **Pattern**
 
 Name, Type, Size, Brand
+
 Catalogs my sewing pattern collection
 
 **Project**
 
 Name, Status, Created Date
+
 Optional references to Fabric and Pattern
+
 Tracks projects from planning to completion
 
 **Development Status**
+
 This is a personal project currently in active development.
 
 **Future Enhancements**
